@@ -1,0 +1,26 @@
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: #343434;
+    border-radius: 10px;
+    margin: 20px 20px 40px 20px;
+}
+
+.you {
+    background-color: green;
+}
+
+.guard {
+    background-color: red;
+}
+
+.blank {
+    background-color: white;
+}
+
+.grid {
+    width: 240px;
+    display: grid;
+    grid-auto-flow: column;
+    margin: 0;
+}
