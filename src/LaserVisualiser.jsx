@@ -17,6 +17,7 @@ export default class LaserVisualiser extends React.Component {
         anglesdist: {},
         dimensionMirrors: DIMENSIONS,
         checked: false,
+        loading: true,
       };
 
       this.handleCheck = this.handleCheck.bind(this);
@@ -113,7 +114,7 @@ export default class LaserVisualiser extends React.Component {
             dimensionMirrors[1].push(DIMENSIONS[1] * i);
         }
 
-        this.setState({ myMappedCoords:this.offsetCoordinates(myMirrors, dimensionMirrors), guardMappedCoords:this.offsetCoordinates(guardMirrors, dimensionMirrors), angdist, dimensionMirrors:dimensionMirrors})
+        this.setState({ myMappedCoords:this.offsetCoordinates(myMirrors, dimensionMirrors), guardMappedCoords:this.offsetCoordinates(guardMirrors, dimensionMirrors), angdist, dimensionMirrors:dimensionMirrors, loading: false})
     }
 
     offsetCoordinates(vectors, mirrors) {
@@ -133,28 +134,36 @@ export default class LaserVisualiser extends React.Component {
 
 
     render() {
-        const { myMappedCoords, guardMappedCoords, angdist, dimensionMirrors, checked } = this.state;
+        const { myMappedCoords, guardMappedCoords, angdist, dimensionMirrors, checked, loading } = this.state;
 
-        return (
-            <div className="LaserVisualiser">
-                <Grid 
-                    key={1}
-                    myMirrors={myMappedCoords}
-                    guardMirrors={guardMappedCoords}
-                    angdist={angdist}
-                    dimensions={dimensionMirrors}
-                    checked={checked}
-                />
-                <label>
-                    <input 
-                        type="checkbox" 
-                        defaultChecked={this.state.checked}
-                        onChange={this.handleCheck}
+        if (loading) {
+            return (
+                <div className="LaserVisualiser">
+                    <h1>Loading...</h1>
+                </div>
+            )
+        } else {
+            return (
+                <div className="LaserVisualiser">
+                    <Grid 
+                        key={1}
+                        myMirrors={myMappedCoords}
+                        guardMirrors={guardMappedCoords}
+                        angdist={angdist}
+                        dimensions={dimensionMirrors}
+                        checked={checked}
                     />
-                    Mirrors
-                </label>
-                <p>Is "Value 1" checked? {this.state.checked.toString()}</p>
-            </div>
-        );
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            defaultChecked={this.state.checked}
+                            onChange={this.handleCheck}
+                        />
+                        Mirrors
+                    </label>
+                    <p>Is "Value 1" checked? {this.state.checked.toString()}</p>
+                </div>
+            );
+        }
     }
 }
