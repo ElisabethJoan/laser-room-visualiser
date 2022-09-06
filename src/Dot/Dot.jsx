@@ -3,10 +3,6 @@ import React, {Component} from 'react';
 import './Dot.css';
 
 export default class Dot extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       row,
@@ -14,17 +10,26 @@ export default class Dot extends Component {
       isYou,
       isGuard,
       isWall,
-      isMirror,
+      isNotMirror,
+      isVisible,
     } = this.props;
 
-    const type = isYou
+    let type = isYou
       ? 'you' : isGuard
       ? 'guard' : isWall
       ? 'wall' : 'blank';
 
+    if (!isNotMirror) {
+      type = type + ' mirror'
+    }
+
+    if (!isVisible) {
+      type = 'blank';
+    }
+    
     return (
         <div
-          id={`col-${col}`}
+          id={`${col}-${row}`}
           className={`dot ${type}`}>
         </div>
     );

@@ -1,6 +1,6 @@
 .dot {
-    height: 20px;
-    width: 20px;
+    height: 10px;
+    width: 10px;
     background-color: #343434;
     border-radius: 10px;
     margin: 20px 20px 40px 20px;
@@ -15,7 +15,11 @@
 }
 
 .blank {
-    background-color: white;
+    visibility: hidden;
+}
+
+.mirror {
+    opacity: 0.2;
 }
 
 .grid {
