@@ -161,7 +161,6 @@ export default class LaserVisualiser extends React.Component {
                         />
                         Mirrors
                     </label>
-                    <p>Is "Value 1" checked? {this.state.checked.toString()}</p>
                 </div>
             );
         }

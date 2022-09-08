@@ -8,7 +8,6 @@ export default class Grid extends Component {
 
     this.state = {
       grid: [],
-      angdist: undefined,
     };
   }
 
@@ -25,7 +24,8 @@ export default class Grid extends Component {
   }
 
   render() {
-    const { grid, angdist } = this.state;
+    const { grid } = this.state;
+    const angdist = this.props.angdist;
 
     return (
       <div className="wrapper">
@@ -51,13 +51,13 @@ export default class Grid extends Component {
               );    
           })}
           </div>
-          {/* <div className="test">
+          <div className="test">
             {Object.keys(angdist).map(function(key, idx) {
               return (
-                <Line x0={158} y0={98} x1={158 + (angdist[key]*60) * Math.cos(key)} y1={98 + (angdist[key]*60) * Math.sin(key)} />
+                <Line key={idx} x0={532} y0={383} x1={532 + (angdist[key] * -50) * Math.cos(key)} y1={383 + (angdist[key] * -50) * Math.sin(key)} />
               )}
             )}
-          </div> */}
+          </div>
       </div>
     );
   }

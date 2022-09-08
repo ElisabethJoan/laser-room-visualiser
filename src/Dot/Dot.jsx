@@ -21,6 +21,8 @@ export default class Dot extends Component {
 
     if (!isNotMirror) {
       type = type + ' mirror'
+    } else {
+      type = type + ' real'
     }
 
     if (!isVisible) {
