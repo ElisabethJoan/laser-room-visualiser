@@ -1,6 +1,7 @@
 import React from "react";
-import LaserVisualiser from "./LaserVisualiser"
-import "./css/App.css";
+
+import LaserVisualiser from "./Visualiser/LaserVisualiser";
+import "./App.css";
 
 function App() {
   return (

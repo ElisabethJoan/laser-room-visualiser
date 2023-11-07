@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import { Line } from 'react-lineto';
-import Dot from "./Dot/Dot";
+import { Component } from "react";
+import { Line } from "react-lineto";
+
+import Dot from "../Dot/Dot";
+import "./Grid.css";
 
 export default class Grid extends Component {
   constructor(props) {

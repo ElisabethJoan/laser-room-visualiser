@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import { Component } from "react";
 
-import './Dot.css';
+import "./Dot.css";
 
 export default class Dot extends Component {
   render() {

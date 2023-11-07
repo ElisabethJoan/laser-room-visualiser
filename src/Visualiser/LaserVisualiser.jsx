@@ -1,13 +1,14 @@
-import React from "react";
-import './LaserVisualiser.css';
-import Grid from './Grid'
+import { Component } from "react";
+
+import Grid from "../Grid/Grid";
+import "./LaserVisualiser.css";
 
 const DIMENSIONS = [[3], [2]];
 const YOUR_POS = [[1], [1]];
 const GUARD_POS = [[2], [1]];
 const DISTANCE = 4;
 
-export default class LaserVisualiser extends React.Component {
+export default class LaserVisualiser extends Component {
     constructor(props) {
       super(props);
   
