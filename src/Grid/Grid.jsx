@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { Line } from "react-lineto";
 
 import Dot from "../Dot/Dot";
 import "./Grid.css";
@@ -27,7 +26,6 @@ export default class Grid extends Component {
 
   render() {
     const { grid } = this.state;
-    const angdist = this.props.angdist;
 
     return (
       <div className="wrapper">
@@ -52,13 +50,6 @@ export default class Grid extends Component {
                 </div>
               );    
           })}
-          </div>
-          <div className="test">
-            {Object.keys(angdist).map(function(key, idx) {
-              return (
-                <Line key={idx} x0={532} y0={383} x1={532 + (angdist[key] * -50) * Math.cos(key)} y1={383 + (angdist[key] * -50) * Math.sin(key)} />
-              )}
-            )}
           </div>
       </div>
     );
