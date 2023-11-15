@@ -4,13 +4,12 @@ import LaserVisualiser from "./Visualiser/LaserVisualiser";
 import Grid from "./Grid/Grid";
 import "./App.css";
 
-const DIMENSIONS = [[3], [2]];
-const YOUR_POS = [[1], [1]];
-const GUARD_POS = [[2], [1]];
-const DISTANCE = 4;
-
 function App() {
   const [checked, setChecked] = useState(false);
+  const [dimensions, setDimensions] = useState([3, 2]);
+  const [origin, setOrigin] = useState([1, 1]);
+  const [target, setTarget] = useState([2, 1]);
+  const [distance, setDistance] = useState(4);
 
   const handleCheck = () => {
     setChecked(!checked);
@@ -133,12 +132,12 @@ function App() {
     return Math.sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2);
   }
   
-  const dimensionMirrorsCalculation = (length) => {
+  const dimensionMirrorsCalculation = (length, dimensions) => {
     let dimensionMirrors = [];
     dimensionMirrors.push([0], [0]);
     for (let i = 1; i < length + 1; i++) {
-        dimensionMirrors[0].push(DIMENSIONS[0] * i);
-        dimensionMirrors[1].push(DIMENSIONS[1] * i);
+        dimensionMirrors[0].push(dimensions[0] * i);
+        dimensionMirrors[1].push(dimensions[1] * i);
     }
     return dimensionMirrors;
   }
@@ -183,20 +182,19 @@ function App() {
     return angdist;
   }
 
-  const originMirrors = mirrorCalculation([...DIMENSIONS[0], ...DIMENSIONS[1]], [...YOUR_POS[0], ...YOUR_POS[1]], DISTANCE);
-  const targetMirrors = mirrorCalculation([...DIMENSIONS[0], ...DIMENSIONS[1]], [...GUARD_POS[0], ...GUARD_POS[1]], DISTANCE);
-  const dimensionMirrors = dimensionMirrorsCalculation(originMirrors[0].length);
+  const originMirrors = mirrorCalculation(dimensions, origin, distance);
+  const targetMirrors = mirrorCalculation(dimensions, target, distance);
+  const dimensionMirrors = dimensionMirrorsCalculation(originMirrors[0].length, dimensions);
 
-  const angles = angleCalculation([...YOUR_POS[0], ...YOUR_POS[1]], [originMirrors, targetMirrors], DISTANCE);
+  const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance);
   const originOffsetMirrors = offsetCoordinates(originMirrors, dimensionMirrors);
   const targetOffsetMirrors = offsetCoordinates(targetMirrors, dimensionMirrors);
 
   let reflections = [];
   for (const [key, value] of Object.entries(angles)) {
-    const coords = calculateReflections(parseFloat(key), value, [...YOUR_POS[0], ...YOUR_POS[1]], [...DIMENSIONS[0], ...DIMENSIONS[1]]);
+    const coords = calculateReflections(parseFloat(key), value, origin, dimensions);
     reflections.push(coords)
   }
-  //const reflections = calculateReflections(Object.keys(angles)[0], Object.values(angles)[0], [...YOUR_POS[0], ...YOUR_POS[1]], [...DIMENSIONS[0], ...DIMENSIONS[1]]);
 
   return (
     <div className="App">
