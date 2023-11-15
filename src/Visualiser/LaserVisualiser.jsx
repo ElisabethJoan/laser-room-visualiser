@@ -25,7 +25,7 @@ export default class LaserVisualiser extends Component {
         <div className="LaserVisualiser">
           {Object.keys(angdist).map(function(key, idx) {
             return (
-              <Line key={idx} x0={525} y0={375} x1={525 + (angdist[key] * -50) * Math.cos(key)} y1={375 + (angdist[key] * -50) * Math.sin(key)} />
+              <Line key={idx} x0={525} y0={465} x1={525 + (angdist[key] * -50) * Math.cos(key)} y1={465 + (angdist[key] * -50) * Math.sin(key)} />
             )}
           )}
         </div>
@@ -37,7 +37,7 @@ export default class LaserVisualiser extends Component {
             return (
                 coordinates.map((coordinate, innerIdx) => {
                   return (
-                    <Line key={innerIdx} x0={474 + (coordinate[0][0] * 50)} y0={325 + (coordinate[0][1] * 50)} x1={474 + (coordinate[1][0] * 50)} y1={325 + (coordinate[1][1] * 50)} />
+                    <Line key={innerIdx} x0={474 + (coordinate[0][0] * 50)} y0={414 + (coordinate[0][1] * 50)} x1={474 + (coordinate[1][0] * 50)} y1={414 + (coordinate[1][1] * 50)} />
                   );
                 })
             );
