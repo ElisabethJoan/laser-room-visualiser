@@ -28,12 +28,22 @@ export default class Dot extends Component {
     if (!isVisible) {
       type = 'blank';
     }
-    
-    return (
+
+    if (this.props.forwardedRef !== null) {
+      return (
+        <div
+          id={`${col}-${row}`}
+          className={`dot ${type}`}
+          ref={this.props.forwardedCallback}>
+        </div>
+      );
+    } else {
+      return (
         <div
           id={`${col}-${row}`}
           className={`dot ${type}`}>
         </div>
-    );
+      );
+    }
   }
 }

@@ -32,23 +32,39 @@ export default class Grid extends Component {
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
-                <div className="column" key={rowIdx}>
-                    {row.map((col, colIdx) => {
-                        return (
-                          <Dot
-                            key={colIdx}
-                            row={col.row}
-                            col={col.col}
-                            isYou={col.isYou}
-                            isGuard={col.isGuard}
-                            isWall={col.isWall}
-                            isNotMirror={col.isNotMirror}
-                            isVisible={col.isVisible}
-                          />
-                        );
-                    })}
-                </div>
-              );    
+              <div className={`column ${rowIdx}`} key={rowIdx}>
+                {row.map((col, colIdx) => {
+                  if (col.isYou && col.isNotMirror) {
+                    return (
+                      <Dot
+                        key={colIdx}
+                        row={col.row}
+                        col={col.col}
+                        isYou={col.isYou}
+                        isGuard={col.isGuard}
+                        isWall={col.isWall}
+                        isNotMirror={col.isNotMirror}
+                        isVisible={col.isVisible}
+                        forwardedCallback={this.props.forwardedCallback}
+                      />
+                    );
+                  } else {
+                    return (
+                      <Dot
+                        key={colIdx}
+                        row={col.row}
+                        col={col.col}
+                        isYou={col.isYou}
+                        isGuard={col.isGuard}
+                        isWall={col.isWall}
+                        isNotMirror={col.isNotMirror}
+                        isVisible={col.isVisible}
+                      />
+                    );
+                  }
+                })}
+              </div>
+            );    
           })}
           </div>
       </div>

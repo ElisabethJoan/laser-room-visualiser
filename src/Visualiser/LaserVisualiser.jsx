@@ -12,20 +12,18 @@ export default class LaserVisualiser extends Component {
   }
 
   render() {
-    const { angdist, reflections, checked } = this.props;
-    if (reflections === undefined) {
-      return (
-        <div className="LaserVisualiser">
-          loading...
-        </div>
-      )
-    }
+    const { angdist, reflections, checked, topOffset, leftOffset } = this.props;
+
     if (checked) {
       return (
         <div className="LaserVisualiser">
           {Object.keys(angdist).map(function(key, idx) {
             return (
-              <Line key={idx} x0={525} y0={465} x1={525 + (angdist[key] * -50) * Math.cos(key)} y1={465 + (angdist[key] * -50) * Math.sin(key)} />
+              <Line key={idx} x0={leftOffset} 
+                y0={topOffset} 
+                x1={leftOffset + (angdist[key] * -50) * Math.cos(key)} 
+                y1={topOffset + (angdist[key] * -50) * Math.sin(key)} 
+                zIndex={-1} />
             )}
           )}
         </div>
@@ -37,7 +35,11 @@ export default class LaserVisualiser extends Component {
             return (
                 coordinates.map((coordinate, innerIdx) => {
                   return (
-                    <Line key={innerIdx} x0={474 + (coordinate[0][0] * 50)} y0={414 + (coordinate[0][1] * 50)} x1={474 + (coordinate[1][0] * 50)} y1={414 + (coordinate[1][1] * 50)} />
+                    <Line key={innerIdx} x0={leftOffset + ((coordinate[0][0] - 1) * 50)} 
+                      y0={topOffset + ((coordinate[0][1] - 1) * 50)} 
+                      x1={leftOffset + ((coordinate[1][0] - 1) * 50)} 
+                      y1={topOffset + ((coordinate[1][1] - 1) * 50)} 
+                      zIndex={-1} />
                   );
                 })
             );
@@ -47,9 +49,3 @@ export default class LaserVisualiser extends Component {
     }
   }
 }
-
-          //{Object.keys(reflections).map(function(key, idx) {
-            //return (
-              //<Line key={idx} x0={474 + (reflections[idx][0][0] * 50)} y0={325 + (reflections[idx][0][1] * 50)} x1={474 + (reflections[idx][1][0] * 50)} y1={325 + (reflections[idx][1][1] * 50)} />
-            //)}
-          //)}

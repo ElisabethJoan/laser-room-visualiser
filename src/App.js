@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Slider from '@mui/material/Slider';
 
 import { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
@@ -11,8 +11,11 @@ import "./App.css";
 function App() {
   const [checked, setChecked] = useState(false);
   const [dimensions, setDimensions] = useState([3, 2]);
+  // eslint-disable-next-line
   const [origin, setOrigin] = useState([1, 1]);
+  // eslint-disable-next-line
   const [target, setTarget] = useState([2, 1]);
+  // eslint-disable-next-line
   const [distance, setDistance] = useState(4);
 
   const handleCheck = () => {
@@ -32,6 +35,17 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
     const coords = calculateReflections(parseFloat(key), value, origin, dimensions);
     reflections.push(coords)
   }
+  
+  const [offsetTop, setOffsetTop] = useState(0);
+  const [offsetLeft, setOffsetLeft] = useState(0);
+ 
+  // eslint-disable-next-line
+  const callback = useCallback(node => {
+    if (node !== null) {
+      setOffsetTop(node.offsetTop);
+      setOffsetLeft(node.offsetLeft);
+    }
+  })
 
   return (
     <div className="App">
@@ -39,17 +53,19 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
         <Slider
           min={2}
           step={1}
-          max={4}
-          value={2}
+          max={3}
+          value={dimensions[1]}
           onChange={(event, value) => {
+            setDimensions([dimensions[0], value])
           }}
         />
         <Slider
-          min={6}
+          min={3}
           step={1}
-          max={12}
-          value={6}
+          max={4}
+          value={dimensions[0]}
           onChange={(event, value) => {
+            setDimensions([value, dimensions[1]])
           }}
         />
         <label>
@@ -66,11 +82,14 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
         guardMirrors={targetOffsetMirrors}
         dimensions={dimensionMirrors}
         checked={checked}
+        forwardedCallback={callback}
       />
       <LaserVisualiser 
         angdist={angles}
         reflections={reflections}
         checked={checked}
+        topOffset={offsetTop + 5}
+        leftOffset={offsetLeft + 5}
       />
     </div>
   );
