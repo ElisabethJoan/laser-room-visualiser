@@ -66,14 +66,3 @@ export default class LaserVisualiser extends Component {
     }
   }
 }
-        // <div className="LaserVisualiser">
-        //   {Object.keys(angdist).map(function(key, idx) {
-        //     return (
-        //       <Line key={idx} x0={leftOffset} 
-        //         y0={topOffset} 
-        //         x1={leftOffset + (angdist[key] * -50) * Math.cos(key)} 
-        //         y1={topOffset + (angdist[key] * -50) * Math.sin(key)} 
-        //         zIndex={-1} />
-        //     )}
-        //   )}
-        // </div>

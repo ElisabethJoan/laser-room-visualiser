@@ -1,7 +1,6 @@
 .grid {
-  width: 240px;
   display: grid;
   grid-auto-flow: column;
-  margin: 0;
+  justify-content: start;
 }
 

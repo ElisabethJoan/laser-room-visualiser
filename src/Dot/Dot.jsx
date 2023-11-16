@@ -3,6 +3,18 @@ import { Component } from "react";
 import "./Dot.css";
 
 export default class Dot extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick.bind(this);
+  }
+
+  handleClick = (row, col, type) => {
+    if (type.includes("real") && type.includes("blank")) {
+      this.props.function(row, col); 
+    }
+  }
+
   render() {
     const {
       row,
@@ -34,14 +46,16 @@ export default class Dot extends Component {
         <div
           id={`${col}-${row}`}
           className={`dot ${type}`}
-          ref={this.props.forwardedCallback}>
+          ref={this.props.forwardedCallback}
+          onClick={() => this.handleClick(row, col, type)} >
         </div>
       );
     } else {
-      return (
+    return (
         <div
           id={`${col}-${row}`}
-          className={`dot ${type}`}>
+          className={`dot ${type}`}
+          onClick={() => this.handleClick(row, col, type)} >
         </div>
       );
     }

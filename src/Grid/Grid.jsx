@@ -17,8 +17,8 @@ export default class Grid extends Component {
     this.setState({ grid });
   }
 
-  componentDidUpdate(previousProps, previousState) {
-    if (previousProps.checked !== this.props.checked) {
+  componentDidUpdate(previousProps) {
+    if (previousProps !== this.props) {
       const grid = getInitialGrid(this.props);
       this.setState({ grid });
     }
@@ -46,6 +46,7 @@ export default class Grid extends Component {
                         isNotMirror={col.isNotMirror}
                         isVisible={col.isVisible}
                         forwardedCallback={this.props.forwardedCallback}
+                        function={this.props.function}
                       />
                     );
                   } else {
@@ -59,6 +60,7 @@ export default class Grid extends Component {
                         isWall={col.isWall}
                         isNotMirror={col.isNotMirror}
                         isVisible={col.isVisible}
+                        function={this.props.function}
                       />
                     );
                   }

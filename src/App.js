@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import Slider from '@mui/material/Slider';
+import Slider from "@mui/material/Slider";
+import Switch from "@mui/material/Switch";
 
 import { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
   offsetCoordinates, calculateReflections, calculateStraightLines } from "./algorithm.js";
@@ -11,12 +12,13 @@ import "./App.css";
 function App() {
   const [checked, setChecked] = useState(false);
   const [dimensions, setDimensions] = useState([3, 2]);
-  // eslint-disable-next-line
   const [origin, setOrigin] = useState([1, 1]);
-  // eslint-disable-next-line
   const [target, setTarget] = useState([2, 1]);
-  // eslint-disable-next-line
   const [distance, setDistance] = useState(4);
+  const [offsetTop, setOffsetTop] = useState(0);
+  const [offsetLeft, setOffsetLeft] = useState(0);
+  const [offsetOffset, setOffsetOffset] = useState([0, 0]);
+  const [moveOrigin, setMoveOrigin] = useState(false);
 
   const handleCheck = () => {
     setChecked(!checked);
@@ -38,10 +40,7 @@ function App() {
     reflections.push(coords);
     lines.push(line);
   }
-  
-  const [offsetTop, setOffsetTop] = useState(0);
-  const [offsetLeft, setOffsetLeft] = useState(0);
- 
+
   // eslint-disable-next-line
   const callback = useCallback(node => {
     if (node !== null) {
@@ -50,6 +49,18 @@ function App() {
     }
   })
 
+  const changeNode = (row, col) => {
+    const middle = dimensionMirrors[0].length >> 1;
+    const x = col - dimensionMirrors[0][middle - 1]
+    const y = row - dimensionMirrors[1][middle - 1]
+    if (!moveOrigin) {
+      setOrigin([x, y]);
+      setOffsetOffset([(x - 1) * 50, (y - 1) * 50])
+    } else {
+      setTarget([x, y]);
+    }
+  }
+  
   return (
     <div className="App">
       <div className="Interface">
@@ -59,7 +70,7 @@ function App() {
           max={3}
           value={dimensions[1]}
           onChange={(_, value) => {
-            setDimensions([dimensions[0], value])
+            setDimensions([dimensions[0], value]);
           }}
         />
         <Slider
@@ -68,9 +79,28 @@ function App() {
           max={4}
           value={dimensions[0]}
           onChange={(_, value) => {
-            setDimensions([value, dimensions[1]])
+            setDimensions([value, dimensions[1]]);
           }}
         />
+        <Slider
+          min={4}
+          step={1}
+          max={7}
+          value={distance}
+          onChange={(_, value) => {
+            setDistance(value);
+          }}
+        />
+        <label>
+          Origin
+          <Switch 
+            value={moveOrigin}
+            onChange={(_, value) => {
+              setMoveOrigin(value);
+            }}
+          />
+          Target    
+        </label>
         <label>
           <input 
             type="checkbox" 
@@ -86,13 +116,14 @@ function App() {
         dimensions={dimensionMirrors}
         checked={checked}
         forwardedCallback={callback}
+        function={changeNode}
       />
       <LaserVisualiser 
         straight={lines}
         reflections={reflections}
         checked={checked}
-        topOffset={offsetTop + 5}
-        leftOffset={offsetLeft + 5}
+        topOffset={offsetTop + 5 - offsetOffset[1]}
+        leftOffset={offsetLeft + 5 - offsetOffset[0]}
       />
     </div>
   );
