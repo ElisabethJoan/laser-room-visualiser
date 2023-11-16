@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import Slider from '@mui/material/Slider';
 
 import { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
-  offsetCoordinates, calculateReflections } from "./algorithm.js";
+  offsetCoordinates, calculateReflections, calculateStraightLines } from "./algorithm.js";
 
 import LaserVisualiser from "./Visualiser/LaserVisualiser";
 import Grid from "./Grid/Grid";
@@ -26,14 +26,17 @@ function App() {
   const targetMirrors = mirrorCalculation(dimensions, target, distance);
   const dimensionMirrors = dimensionMirrorsCalculation(originMirrors[0].length, dimensions);
 
-const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance);
+  const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance);
   const originOffsetMirrors = offsetCoordinates(originMirrors, dimensionMirrors);
   const targetOffsetMirrors = offsetCoordinates(targetMirrors, dimensionMirrors);
 
   let reflections = [];
+  let lines = [];
   for (const [key, value] of Object.entries(angles)) {
     const coords = calculateReflections(parseFloat(key), value, origin, dimensions);
-    reflections.push(coords)
+    const line = calculateStraightLines(parseFloat(key), value, origin, dimensions);
+    reflections.push(coords);
+    lines.push(line);
   }
   
   const [offsetTop, setOffsetTop] = useState(0);
@@ -55,7 +58,7 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
           step={1}
           max={3}
           value={dimensions[1]}
-          onChange={(event, value) => {
+          onChange={(_, value) => {
             setDimensions([dimensions[0], value])
           }}
         />
@@ -64,7 +67,7 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
           step={1}
           max={4}
           value={dimensions[0]}
-          onChange={(event, value) => {
+          onChange={(_, value) => {
             setDimensions([value, dimensions[1]])
           }}
         />
@@ -74,7 +77,7 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
             defaultChecked={checked}
             onChange={handleCheck}
           />
-          Mirrors
+          Show Mirrors
         </label>
       </div>
       <Grid
@@ -85,7 +88,7 @@ const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance
         forwardedCallback={callback}
       />
       <LaserVisualiser 
-        angdist={angles}
+        straight={lines}
         reflections={reflections}
         checked={checked}
         topOffset={offsetTop + 5}

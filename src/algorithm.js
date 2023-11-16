@@ -135,6 +135,33 @@ const calculateReflections = (angle, distance, origin, dimensions) => {
   return reflectionCoords;
 }
 
+const calculateStraightLines = (angle, distance, origin, dimensions) => {
+  const dimensionWidth = dimensions[0];
+  const dimensionHeight = dimensions[1];
+  
+  const walls = [[[0, 0], [dimensionWidth, 0]], 
+    [[dimensionWidth, 0], [dimensionWidth, dimensionHeight]], 
+    [[dimensionWidth, dimensionHeight], [0, dimensionHeight]], 
+    [[0, dimensionHeight], [0, 0]]]
+
+  const nangle = (angle + Math.PI)
+
+  const xEnd = Math.round(((origin[0] + (distance * Math.cos(nangle))) * 100) / 100);
+  const yEnd = Math.round(((origin[1] + (distance * Math.sin(nangle))) * 100) / 100);
+
+  let intersection = null;
+  walls.forEach(wall => {
+    const tempIntersection = findIntersection([[origin[0], origin[1]], [xEnd, yEnd]], wall);
+    if (tempIntersection !== null) {
+      intersection = tempIntersection;
+    }
+  });
+  if (intersection === null) {
+    return [origin, [xEnd, yEnd]];
+  }
+  return [origin, intersection, [xEnd, yEnd]];
+}
+
 const findIntersection = (line1, line2) => {
   function ccw(A,B,C) {
     return (C[1] - A[1]) * (B[0] - A[0]) > (B[1] - A[1]) * (C[0] - A[0])
@@ -207,4 +234,4 @@ function arraysEqual(a1,a2) {
 }
 
 export { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
-  offsetCoordinates, calculateReflections}
+  offsetCoordinates, calculateReflections, calculateStraightLines }
