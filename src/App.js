@@ -27,7 +27,7 @@ function App() {
   const originMirrors = mirrorCalculation(dimensions, origin, distance);
   const targetMirrors = mirrorCalculation(dimensions, target, distance);
   const dimensionMirrors = dimensionMirrorsCalculation(originMirrors[0].length, dimensions);
-
+  
   const angles = angleCalculation(origin, [originMirrors, targetMirrors], distance);
   const originOffsetMirrors = offsetCoordinates(originMirrors, dimensionMirrors);
   const targetOffsetMirrors = offsetCoordinates(targetMirrors, dimensionMirrors);
@@ -51,18 +51,45 @@ function App() {
 
   const changeNode = (row, col) => {
     const middle = dimensionMirrors[0].length >> 1;
-    const x = col - dimensionMirrors[0][middle - 1]
-    const y = row - dimensionMirrors[1][middle - 1]
+    const x = col - dimensionMirrors[0][middle - 1];
+    const y = row - dimensionMirrors[1][middle - 1];
     if (!moveOrigin) {
       setOrigin([x, y]);
-      setOffsetOffset([(x - 1) * 50, (y - 1) * 50])
+      setOffsetOffset([(x - 1) * 50, (y - 1) * 50]);
     } else {
       setTarget([x, y]);
     }
   }
-  
+
   return (
     <div className="App">
+      <div className="Wrapper">
+        <Grid
+          myMirrors={originOffsetMirrors}
+          guardMirrors={targetOffsetMirrors}
+          dimensions={dimensionMirrors}
+          checked={checked}
+          forwardedCallback={callback}
+          function={changeNode}
+        />
+        <LaserVisualiser 
+          straight={lines}
+          reflections={reflections}
+          checked={checked}
+          topOffset={offsetTop + 5 - offsetOffset[1]}
+          leftOffset={offsetLeft + 5 - offsetOffset[0]}
+        />
+      </div>
+      <div className="Description">
+        <p>
+Bringing a Gun to a Guard Fight
+===============================
+        </p><p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus magna arcu, id fringilla magna facilisis sit amet. Maecenas leo velit, mollis at lectus quis, bibendum vestibulum arcu. Aliquam at turpis gravida, malesuada risus accumsan, condimentum lacus. Pellentesque et lorem id augue aliquet commodo. Cras lobortis pharetra urna, vitae ultrices massa commodo ut. Vestibulum efficitur efficitur dolor sit amet tincidunt. Suspendisse potenti. Donec dignissim ligula pellentesque auctor commodo. Curabitur posuere sapien a orci posuere, eget auctor ex placerat. Ut lobortis risus ut ex efficitur venenatis. Etiam eget enim ultricies, gravida justo non, dictum felis. Quisque at arcu tempor felis efficitur ullamcorper. Ut sed tincidunt quam. Aenean iaculis dui et metus tempus, sed pretium nulla molestie. Phasellus urna nunc, molestie ut mi a, rutrum euismod metus. Nunc id sem nunc.
+        </p><p>
+Donec eget imperdiet justo. Phasellus id elit mollis, rhoncus erat sit amet, lacinia turpis. Quisque ut massa ac neque fermentum scelerisque id quis risus. Nunc vulputate velit ante. Aenean malesuada enim ac hendrerit vulputate. Donec arcu justo, mattis a erat vitae, fringilla accumsan sapien. Aenean mattis elit justo, sit amet euismod lorem egestas et. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec aliquet at quam sit amet interdum. Aenean lobortis convallis sodales. Maecenas maximus felis sed consectetur semper. Ut mollis metus quis magna feugiat dignissim. Suspendisse tincidunt elit eget est egestas dapibus. Praesent eget maximus neque, vitae posuere sapien. In varius pellentesque purus et volutpat. Duis in maximus felis.
+        </p>
+      </div>
       <div className="Interface">
         <Slider
           min={2}
@@ -110,21 +137,6 @@ function App() {
           Show Mirrors
         </label>
       </div>
-      <Grid
-        myMirrors={originOffsetMirrors}
-        guardMirrors={targetOffsetMirrors}
-        dimensions={dimensionMirrors}
-        checked={checked}
-        forwardedCallback={callback}
-        function={changeNode}
-      />
-      <LaserVisualiser 
-        straight={lines}
-        reflections={reflections}
-        checked={checked}
-        topOffset={offsetTop + 5 - offsetOffset[1]}
-        leftOffset={offsetLeft + 5 - offsetOffset[0]}
-      />
     </div>
   );
 }

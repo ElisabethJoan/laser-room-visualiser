@@ -28,47 +28,45 @@ export default class Grid extends Component {
     const { grid } = this.state;
 
     return (
-      <div className="wrapper">
-        <div className="grid">
-          {grid.map((row, rowIdx) => {
-            return (
-              <div className={`column ${rowIdx}`} key={rowIdx}>
-                {row.map((col, colIdx) => {
-                  if (col.isYou && col.isNotMirror) {
-                    return (
-                      <Dot
-                        key={colIdx}
-                        row={col.row}
-                        col={col.col}
-                        isYou={col.isYou}
-                        isGuard={col.isGuard}
-                        isWall={col.isWall}
-                        isNotMirror={col.isNotMirror}
-                        isVisible={col.isVisible}
-                        forwardedCallback={this.props.forwardedCallback}
-                        function={this.props.function}
-                      />
-                    );
-                  } else {
-                    return (
-                      <Dot
-                        key={colIdx}
-                        row={col.row}
-                        col={col.col}
-                        isYou={col.isYou}
-                        isGuard={col.isGuard}
-                        isWall={col.isWall}
-                        isNotMirror={col.isNotMirror}
-                        isVisible={col.isVisible}
-                        function={this.props.function}
-                      />
-                    );
-                  }
-                })}
-              </div>
-            );    
-          })}
-          </div>
+      <div className="grid">
+        {grid.map((row, rowIdx) => {
+          return (
+            <div className={`column ${rowIdx}`} key={rowIdx}>
+              {row.map((col, colIdx) => {
+                if (col.isYou && col.isNotMirror) {
+                  return (
+                    <Dot
+                      key={colIdx}
+                      row={col.row}
+                      col={col.col}
+                      isYou={col.isYou}
+                      isGuard={col.isGuard}
+                      isWall={col.isWall}
+                      isNotMirror={col.isNotMirror}
+                      isVisible={col.isVisible}
+                      forwardedCallback={this.props.forwardedCallback}
+                      function={this.props.function}
+                    />
+                  );
+                } else {
+                  return (
+                    <Dot
+                      key={colIdx}
+                      row={col.row}
+                      col={col.col}
+                      isYou={col.isYou}
+                      isGuard={col.isGuard}
+                      isWall={col.isWall}
+                      isNotMirror={col.isNotMirror}
+                      isVisible={col.isVisible}
+                      function={this.props.function}
+                    />
+                  );
+                }
+              })}
+            </div>
+          );    
+        })}
       </div>
     );
   }
