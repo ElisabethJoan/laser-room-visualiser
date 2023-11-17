@@ -3,7 +3,7 @@ import Slider from "@mui/material/Slider";
 import Switch from "@mui/material/Switch";
 
 import { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
-  offsetCoordinates, calculateReflections, calculateStraightLines } from "./algorithm.js";
+  offsetCoordinates, calculateReflections, calculateStraightLines, arraysEqual } from "./algorithm.js";
 
 import LaserVisualiser from "./Visualiser/LaserVisualiser";
 import Grid from "./Grid/Grid";
@@ -97,16 +97,68 @@ Donec eget imperdiet justo. Phasellus id elit mollis, rhoncus erat sit amet, lac
           max={3}
           value={dimensions[1]}
           onChange={(_, value) => {
-            setDimensions([dimensions[0], value]);
+            const newDimensions = [dimensions[0], value];
+            if (origin[1] === value) {
+              let newOrigin = [origin[0], value - 1];
+              for (let i = newDimensions[0] - 1; i > 0; i--) {
+                for (let j = newDimensions[1] - 1; j > 0; j--) {
+                  if (!arraysEqual([i, j], target)) {
+                    newOrigin = [i, j];
+                    break;
+                  }
+                }
+              }
+              setOrigin(newOrigin);
+              setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
+            }
+            if (target[1] === value) {
+              let newTarget = [target[0], value - 1];
+              for (let i = newDimensions[0] - 1; i > 0; i--) {
+                for (let j = newDimensions[1] - 1; j > 0; j--) {
+                  if (!arraysEqual([i, j], origin)) {
+                    newTarget = [i, j];
+                    break;
+                  }
+                }
+              }
+              setTarget(newTarget);
+            }
+            setDimensions(newDimensions);
           }}
         />
         <Slider
           min={3}
           step={1}
-          max={4}
+          max={10}
           value={dimensions[0]}
           onChange={(_, value) => {
-            setDimensions([value, dimensions[1]]);
+            const newDimensions = [value, dimensions[1]];
+            if (origin[0] === value ) {
+              let newOrigin = [value - 1, origin[1]];
+              for (let i = newDimensions[1] - 1; i > 0; i--) {
+                for (let j = newDimensions[0] - 1; j > 0; j--) {
+                  if (!arraysEqual([j, i], target)) {
+                    newOrigin = [j, i];
+                    break;
+                  }
+                }
+              }
+              setOrigin(newOrigin);
+              setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
+            }
+            if (target[0] === value) {
+              let newTarget = [value - 1, target[1]];
+              for (let i = newDimensions[1] - 1; i > 0; i--) {
+                for (let j = newDimensions[0] - 1; j > 0; j--) {
+                  if (!arraysEqual([j, i], origin)) {
+                    newTarget = [j, i];
+                    break;
+                  }
+                }
+              }
+              setTarget(newTarget);
+            }
+            setDimensions(newDimensions);
           }}
         />
         <Slider

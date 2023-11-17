@@ -234,4 +234,4 @@ function arraysEqual(a1,a2) {
 }
 
 export { mirrorCalculation, dimensionMirrorsCalculation, angleCalculation, 
-  offsetCoordinates, calculateReflections, calculateStraightLines }
+  offsetCoordinates, calculateReflections, calculateStraightLines, arraysEqual }
