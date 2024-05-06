@@ -45,5 +45,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/travelling-salesman-visualiser:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/google-laser-visualiser:latest
 
