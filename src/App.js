@@ -80,114 +80,120 @@ function App() {
           leftOffset={offsetLeft + 5 - offsetOffset[0]}
         />
       </div>
-      <div className="Description">
-        <p>
-Bringing a Gun to a Guard Fight
-===============================
-        </p><p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus magna arcu, id fringilla magna facilisis sit amet. Maecenas leo velit, mollis at lectus quis, bibendum vestibulum arcu. Aliquam at turpis gravida, malesuada risus accumsan, condimentum lacus. Pellentesque et lorem id augue aliquet commodo. Cras lobortis pharetra urna, vitae ultrices massa commodo ut. Vestibulum efficitur efficitur dolor sit amet tincidunt. Suspendisse potenti. Donec dignissim ligula pellentesque auctor commodo. Curabitur posuere sapien a orci posuere, eget auctor ex placerat. Ut lobortis risus ut ex efficitur venenatis. Etiam eget enim ultricies, gravida justo non, dictum felis. Quisque at arcu tempor felis efficitur ullamcorper. Ut sed tincidunt quam. Aenean iaculis dui et metus tempus, sed pretium nulla molestie. Phasellus urna nunc, molestie ut mi a, rutrum euismod metus. Nunc id sem nunc.
-        </p><p>
-Donec eget imperdiet justo. Phasellus id elit mollis, rhoncus erat sit amet, lacinia turpis. Quisque ut massa ac neque fermentum scelerisque id quis risus. Nunc vulputate velit ante. Aenean malesuada enim ac hendrerit vulputate. Donec arcu justo, mattis a erat vitae, fringilla accumsan sapien. Aenean mattis elit justo, sit amet euismod lorem egestas et. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec aliquet at quam sit amet interdum. Aenean lobortis convallis sodales. Maecenas maximus felis sed consectetur semper. Ut mollis metus quis magna feugiat dignissim. Suspendisse tincidunt elit eget est egestas dapibus. Praesent eget maximus neque, vitae posuere sapien. In varius pellentesque purus et volutpat. Duis in maximus felis.
-        </p>
-      </div>
-      <div className="Interface">
-        <Slider
-          min={2}
-          step={1}
-          max={3}
-          value={dimensions[1]}
-          onChange={(_, value) => {
-            const newDimensions = [dimensions[0], value];
-            if (origin[1] === value) {
-              let newOrigin = [origin[0], value - 1];
-              for (let i = newDimensions[0] - 1; i > 0; i--) {
-                for (let j = newDimensions[1] - 1; j > 0; j--) {
-                  if (!arraysEqual([i, j], target)) {
-                    newOrigin = [i, j];
-                    break;
-                  }
-                }
-              }
-              setOrigin(newOrigin);
-              setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
-            }
-            if (target[1] === value) {
-              let newTarget = [target[0], value - 1];
-              for (let i = newDimensions[0] - 1; i > 0; i--) {
-                for (let j = newDimensions[1] - 1; j > 0; j--) {
-                  if (!arraysEqual([i, j], origin)) {
-                    newTarget = [i, j];
-                    break;
-                  }
-                }
-              }
-              setTarget(newTarget);
-            }
-            setDimensions(newDimensions);
-          }}
-        />
-        <Slider
-          min={3}
-          step={1}
-          max={10}
-          value={dimensions[0]}
-          onChange={(_, value) => {
-            const newDimensions = [value, dimensions[1]];
-            if (origin[0] === value ) {
-              let newOrigin = [value - 1, origin[1]];
-              for (let i = newDimensions[1] - 1; i > 0; i--) {
-                for (let j = newDimensions[0] - 1; j > 0; j--) {
-                  if (!arraysEqual([j, i], target)) {
-                    newOrigin = [j, i];
-                    break;
-                  }
-                }
-              }
-              setOrigin(newOrigin);
-              setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
-            }
-            if (target[0] === value) {
-              let newTarget = [value - 1, target[1]];
-              for (let i = newDimensions[1] - 1; i > 0; i--) {
-                for (let j = newDimensions[0] - 1; j > 0; j--) {
-                  if (!arraysEqual([j, i], origin)) {
-                    newTarget = [j, i];
-                    break;
-                  }
-                }
-              }
-              setTarget(newTarget);
-            }
-            setDimensions(newDimensions);
-          }}
-        />
-        <Slider
-          min={4}
-          step={1}
-          max={7}
-          value={distance}
-          onChange={(_, value) => {
-            setDistance(value);
-          }}
-        />
-        <label>
-          Origin
-          <Switch 
-            value={moveOrigin}
+      <div className="Sidebar">
+        <div className="Interface">
+          <span>y axis</span>
+          <Slider
+            min={2}
+            step={1}
+            max={4}
+            value={dimensions[1]}
             onChange={(_, value) => {
-              setMoveOrigin(value);
+              const newDimensions = [dimensions[0], value];
+              if (origin[1] === value) {
+                let newOrigin = [origin[0], value - 1];
+                for (let i = newDimensions[0] - 1; i > 0; i--) {
+                  for (let j = newDimensions[1] - 1; j > 0; j--) {
+                    if (!arraysEqual([i, j], target)) {
+                      newOrigin = [i, j];
+                      break;
+                    }
+                  }
+                }
+                setOrigin(newOrigin);
+                setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
+              }
+              if (target[1] === value) {
+                let newTarget = [target[0], value - 1];
+                for (let i = newDimensions[0] - 1; i > 0; i--) {
+                  for (let j = newDimensions[1] - 1; j > 0; j--) {
+                    if (!arraysEqual([i, j], origin)) {
+                      newTarget = [i, j];
+                      break;
+                    }
+                  }
+                }
+                setTarget(newTarget);
+              }
+              setDimensions(newDimensions);
             }}
           />
-          Target    
-        </label>
-        <label>
-          <input 
-            type="checkbox" 
-            defaultChecked={checked}
-            onChange={handleCheck}
+          <span>x axis</span>
+          <Slider
+            min={3}
+            step={1}
+            max={6}
+            value={dimensions[0]}
+            onChange={(_, value) => {
+              const newDimensions = [value, dimensions[1]];
+              if (origin[0] === value ) {
+                let newOrigin = [value - 1, origin[1]];
+                for (let i = newDimensions[1] - 1; i > 0; i--) {
+                  for (let j = newDimensions[0] - 1; j > 0; j--) {
+                    if (!arraysEqual([j, i], target)) {
+                      newOrigin = [j, i];
+                      break;
+                    }
+                  }
+                }
+                setOrigin(newOrigin);
+                setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
+              }
+              if (target[0] === value) {
+                let newTarget = [value - 1, target[1]];
+                for (let i = newDimensions[1] - 1; i > 0; i--) {
+                  for (let j = newDimensions[0] - 1; j > 0; j--) {
+                    if (!arraysEqual([j, i], origin)) {
+                      newTarget = [j, i];
+                      break;
+                    }
+                  }
+                }
+                setTarget(newTarget);
+              }
+              setDimensions(newDimensions);
+            }}
           />
-          Show Mirrors
-        </label>
+          <span>laser distance</span>
+          <Slider
+            min={4}
+            step={1}
+            max={9}
+            value={distance}
+            onChange={(_, value) => {
+              setDistance(value);
+            }}
+          />
+          <label>
+            Origin
+            <Switch 
+              value={moveOrigin}
+              onChange={(_, value) => {
+                setMoveOrigin(value);
+              }}
+            />
+            Target    
+          </label>
+          <label>
+            <input 
+              type="checkbox" 
+              defaultChecked={checked}
+              onChange={handleCheck}
+            />
+            Show Mirrors
+          </label>
+        </div>
+        <div className="Description">
+          <p>
+  ==============
+  Bringing a Gun to a Guard Fight
+  ==========
+          </p><p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus magna arcu, id fringilla magna facilisis sit amet. Maecenas leo velit, mollis at lectus quis, bibendum vestibulum arcu. Aliquam at turpis gravida, malesuada risus accumsan, condimentum lacus. Pellentesque et lorem id augue aliquet commodo. Cras lobortis pharetra urna, vitae ultrices massa commodo ut. Vestibulum efficitur efficitur dolor sit amet tincidunt. Suspendisse potenti. Donec dignissim ligula pellentesque auctor commodo. Curabitur posuere sapien a orci posuere, eget auctor ex placerat. Ut lobortis risus ut ex efficitur venenatis. Etiam eget enim ultricies, gravida justo non, dictum felis. Quisque at arcu tempor felis efficitur ullamcorper. Ut sed tincidunt quam. Aenean iaculis dui et metus tempus, sed pretium nulla molestie. Phasellus urna nunc, molestie ut mi a, rutrum euismod metus. Nunc id sem nunc.
+          </p><p>
+  Donec eget imperdiet justo. Phasellus id elit mollis, rhoncus erat sit amet, lacinia turpis. Quisque ut massa ac neque fermentum scelerisque id quis risus. Nunc vulputate velit ante. Aenean malesuada enim ac hendrerit vulputate. Donec arcu justo, mattis a erat vitae, fringilla accumsan sapien. Aenean mattis elit justo, sit amet euismod lorem egestas et. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec aliquet at quam sit amet interdum. Aenean lobortis convallis sodales. Maecenas maximus felis sed consectetur semper. Ut mollis metus quis magna feugiat dignissim. Suspendisse tincidunt elit eget est egestas dapibus. Praesent eget maximus neque, vitae posuere sapien. In varius pellentesque purus et volutpat. Duis in maximus felis.
+          </p>
+        </div>
       </div>
     </div>
   );
