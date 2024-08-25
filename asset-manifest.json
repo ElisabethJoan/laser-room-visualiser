@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/laser-room-visualiser/static/css/main.67b9a157.css",
+    "main.js": "/laser-room-visualiser/static/js/main.89234831.js",
+    "index.html": "/laser-room-visualiser/index.html",
+    "main.67b9a157.css.map": "/laser-room-visualiser/static/css/main.67b9a157.css.map",
+    "main.89234831.js.map": "/laser-room-visualiser/static/js/main.89234831.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67b9a157.css",
+    "static/js/main.89234831.js"
+  ]
+}
