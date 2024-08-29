@@ -2,13 +2,13 @@
   "name": "laser-room-visualiser",
   "homepage": "https://elisabethjoan.github.io/laser-room-visualiser",
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.18",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-lineto": "3.3.0",
-    "react-scripts": "5.0.1"
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.0",
+    "r3f-pack": "^3.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-lineto": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,8 +25,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-private-property-in-object": "^7.24.5"
   }
 }
