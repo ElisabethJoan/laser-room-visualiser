@@ -11,8 +11,8 @@
     "react-lineto": "^3.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "r3f-pack start",
+    "build": "r3f-pack build"
   },
   "browserslist": {
     "production": [
