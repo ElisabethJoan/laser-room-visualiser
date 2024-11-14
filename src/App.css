@@ -1,12 +1,15 @@
 .App {
+    display: grid;
+    height: 96.5vh;
+    grid-template-rows: auto 1fr auto;
 }
 
 .SketchWrapper {
-    height: 70vh;
     overflow: hidden;
 }
 
 .Interface {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 40px;
+    grid-template-columns: repeat(5, 1fr);
 }
