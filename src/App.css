@@ -1,22 +1,12 @@
 .App {
-  overflow: hidden;
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
 }
 
-.Sidebar {
-  display: grid;
-  justify-items: center;
-}
-
-.Description {
-  text-align: left;
+.SketchWrapper {
+    height: 70vh;
+    overflow: hidden;
 }
 
 .Interface {
-  margin-top: 20px;
-  margin-left: 20px;
-  height: 200px;
-  width: 300px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
 }
