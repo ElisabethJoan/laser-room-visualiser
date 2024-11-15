@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import Slider from "@mui/material/Slider";
-import Switch from "@mui/material/Switch";
 
 import { HomeRow, SketchWrapper, BlogWrapper } from "@elisabethjoan/portfolio-scaffold";
 
@@ -20,7 +19,6 @@ function App() {
   const [offsetTop, setOffsetTop] = useState(0);
   const [offsetLeft, setOffsetLeft] = useState(0);
   const [offsetOffset, setOffsetOffset] = useState([0, 0]);
-  const [moveOrigin, setMoveOrigin] = useState(false);
 
   const handleCheck = () => {
     setChecked(!checked);
