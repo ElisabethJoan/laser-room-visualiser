@@ -96,11 +96,13 @@ function App() {
                 const newDimensions = [dimensions[0], value];
                 if (origin[1] === value) {
                   let newOrigin = [origin[0], value - 1];
-                  for (let i = newDimensions[0] - 1; i > 0; i--) {
+                  if (arraysEqual(newOrigin, target)) {
                     for (let j = newDimensions[1] - 1; j > 0; j--) {
-                      if (!arraysEqual([i, j], target)) {
-                        newOrigin = [i, j];
-                        break;
+                      for (let i = newDimensions[0] - 1; i > 0; i--) {
+                        if (!arraysEqual([i, j], target)) {
+                          newOrigin = [i, j];
+                          i = j = -1;
+                        }
                       }
                     }
                   }
@@ -109,11 +111,12 @@ function App() {
                 }
                 if (target[1] === value) {
                   let newTarget = [target[0], value - 1];
-                  for (let i = newDimensions[0] - 1; i > 0; i--) {
-                    for (let j = newDimensions[1] - 1; j > 0; j--) {
+                  if (arraysEqual(newTarget, origin))
+                  for (let j = newDimensions[1] - 1; j > 0; j--) {
+                    for (let i = newDimensions[0] - 1; i > 0; i--) {
                       if (!arraysEqual([i, j], origin)) {
                         newTarget = [i, j];
-                        break;
+                        i = j = -1;
                       }
                     }
                   }
@@ -125,41 +128,45 @@ function App() {
           </label>
           <label>
             x axis
-              <Slider
-                min={3}
-                step={1}
-                max={6}
-                value={dimensions[0]}
-                onChange={(_, value) => {
-                  const newDimensions = [value, dimensions[1]];
-                  if (origin[0] === value ) {
-                    let newOrigin = [value - 1, origin[1]];
+            <Slider
+              min={3}
+              step={1}
+              max={6}
+              value={dimensions[0]}
+              onChange={(_, value) => {
+                const newDimensions = [value, dimensions[1]];
+                if (origin[0] === value ) {
+                  let newOrigin = [value - 1, origin[1]];
+                  if (arraysEqual(newOrigin, target)) {
                     for (let i = newDimensions[1] - 1; i > 0; i--) {
                       for (let j = newDimensions[0] - 1; j > 0; j--) {
                         if (!arraysEqual([j, i], target)) {
                           newOrigin = [j, i];
-                          break;
+                          i = j = -1;
                         }
                       }
                     }
-                    setOrigin(newOrigin);
-                    setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
                   }
-                  if (target[0] === value) {
-                    let newTarget = [value - 1, target[1]];
+                  setOrigin(newOrigin);
+                  setOffsetOffset([(newOrigin[0] - 1) * 50, (newOrigin[1] - 1) * 50]);
+                }
+                if (target[0] === value) {
+                  let newTarget = [value - 1, target[1]];
+                  if (arraysEqual(newTarget, origin)) {
                     for (let i = newDimensions[1] - 1; i > 0; i--) {
                       for (let j = newDimensions[0] - 1; j > 0; j--) {
                         if (!arraysEqual([j, i], origin)) {
                           newTarget = [j, i];
-                          break;
+                          i = j = -1;
                         }
                       }
                     }
-                    setTarget(newTarget);
                   }
-                  setDimensions(newDimensions);
-                }}
-              />
+                  setTarget(newTarget);
+                }
+                setDimensions(newDimensions);
+              }}
+            />
           </label>
           <label>
             laser distance
