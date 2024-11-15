@@ -9,9 +9,9 @@ export default class Dot extends Component {
     this.handleClick.bind(this);
   }
 
-  handleClick = (row, col, type) => {
+  handleClick = (e, row, col, type) => {
     if (type.includes("real") && type.includes("blank")) {
-      this.props.function(row, col); 
+      this.props.function(e, row, col); 
     }
   }
 
@@ -47,7 +47,9 @@ export default class Dot extends Component {
           id={`${col}-${row}`}
           className={`dot ${type}`}
           ref={this.props.forwardedCallback}
-          onClick={() => this.handleClick(row, col, type)} >
+          onClick={(e) => this.handleClick(e, row, col, type)} 
+          onContextMenu={(e) => this.handleClick(e, row, col, type)}
+        >
         </div>
       );
     } else {
@@ -55,7 +57,9 @@ export default class Dot extends Component {
         <div
           id={`${col}-${row}`}
           className={`dot ${type}`}
-          onClick={() => this.handleClick(row, col, type)} >
+          onClick={(e) => this.handleClick(e, row, col, type)} 
+          onContextMenu={(e) => this.handleClick(e, row, col, type)}
+        >
         </div>
       );
     }

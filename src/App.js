@@ -51,11 +51,12 @@ function App() {
     }
   })
 
-  const changeNode = (row, col) => {
+  const changeNode = (e, row, col) => {
+    console.log(e.button)
     const middle = dimensionMirrors[0].length >> 1;
     const x = col - dimensionMirrors[0][middle - 1];
     const y = row - dimensionMirrors[1][middle - 1];
-    if (!moveOrigin) {
+    if (e.button === 0) {
       setOrigin([x, y]);
       setOffsetOffset([(x - 1) * 50, (y - 1) * 50]);
     } else {
@@ -179,16 +180,6 @@ function App() {
                 setDistance(value);
               }}
             />
-          </label>
-          <label>
-            Origin
-            <Switch 
-              value={moveOrigin}
-              onChange={(_, value) => {
-                setMoveOrigin(value);
-              }}
-            />
-            Target    
           </label>
           <label>
             <input 
